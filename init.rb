@@ -1,5 +1,18 @@
 require 'redmine'
 
+Fixnum.class_eval do
+  def to_custom_query_limit
+    return 1  if self <= 0
+    self
+  end
+end
+
+String.class_eval do
+  def to_custom_query_limit
+    to_i.to_custom_query_limit
+  end
+end
+
 Redmine::Plugin.register :redmine_my_page_queries do
   name 'MyPage custom queries'
   author 'Milan Stastny of ALVILA SYSTEMS'
